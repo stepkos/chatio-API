@@ -77,11 +77,17 @@ class AuthController extends Controller
      */
     protected function respondWithToken($token)
     {
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
-        ]);
+
+        // cookie(klucz, wartosc, zywotnosc)
+        $cookie = cookie(
+            'token', 
+            $token, 
+            auth()->factory()->getTTL()*180
+        );
+
+        return response([
+            'message' => 'success'
+        ], 200)->withCookie($cookie);
     }
 
     public function register(Request $request) {
@@ -99,7 +105,7 @@ class AuthController extends Controller
         ]);
 
         return response()->json([
-            'message' => 'Success',
+            'message' => 'success',
         ], 201);
     }
 
