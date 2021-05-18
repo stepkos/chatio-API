@@ -15,7 +15,7 @@ class CreateConversationsTable extends Migration
     {
         Schema::create('conversations', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->nullable()->default(null);
             $table->timestamps();
         });
     }

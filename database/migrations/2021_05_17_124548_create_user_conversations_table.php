@@ -21,7 +21,7 @@ class CreateUserConversationsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('conversation_id')->references('id')->on('conversations');
 
-            $table->string('member_name')->nullable();
+            $table->string('member_name')->nullable()->default(null);
             $table->timestamps();
         });
     }
