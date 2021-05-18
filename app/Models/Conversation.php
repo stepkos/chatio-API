@@ -16,7 +16,8 @@ class Conversation extends Model
     ];
 
     public function users() {
-        return $this->belongsToMany(User::class, 'user_conversations');
+        return $this->belongsToMany(User::class, 'user_conversations', 'conversation_id', 'user_id')
+            ->withPivot('member_name');
     }
 
 }

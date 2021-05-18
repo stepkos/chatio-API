@@ -42,6 +42,7 @@ class User extends Authenticatable
     ];
 
     public function conversations() {
-        return $this->hasMany(Conversation::class, 'user_conversations');
+        return $this->belongsToMany(Conversation::class, 'user_conversations', 'user_id', 'conversation_id')
+            ->withPivot('member_name');
     }
 }

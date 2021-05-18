@@ -15,10 +15,7 @@ class Message extends Model
         'content'
     ];
 
-    public function user_conversations() {
-        // return $this->belongsTo();
-        /**
-         * @todo sprawdzic jak sie dodaje relacje na tabele krzyzowa
-         */
-    }
+    // public function user_conversations() {
+        
+    // }
 }
