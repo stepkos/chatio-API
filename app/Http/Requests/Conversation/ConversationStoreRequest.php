@@ -4,7 +4,7 @@ namespace App\Http\Requests\Conversation;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRequest extends FormRequest
+class ConversationStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'content' => 'required|max:255'
+            'name' => 'nullable|max:255'
         ];
     }
 }

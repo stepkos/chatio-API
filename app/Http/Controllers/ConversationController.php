@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Conversation\ConversationStoreRequest;
+use App\Http\Requests\Conversation\ConversationUpdateRequest;
 use App\Models\Conversation;
 use Illuminate\Http\Request;
 
@@ -17,12 +19,17 @@ class ConversationController extends Controller
 
     // /POST 	/conversations 
     // stworzenie nowej konwersacji
-    public function store() {
-
+    public function store(ConversationStoreRequest $request) {
+        auth()->user()->conversations()->create($request->validated());
+        
+        return response()->json([
+            'message' => 'success'
+        ], 201);
     }
 
     // GET 	/conversations/{conversation 
     // nazwa pojedynczej kowersacji
+    // model-binding = Conversation $conversation
     public function show(Conversation $conversation) {
         return response()->json([
             'data' => $conversation
@@ -31,14 +38,24 @@ class ConversationController extends Controller
 
     // PUT 	/conversations/{conversation}  
     // zmiana nazwy konwersacji
-    public function update($slug) {
+    public function update(ConversationUpdateRequest $request, Conversation $conversation) {
+        $conversation->update($request->validated());
 
+        return response()->json([
+            'message' => 'success'
+        ], 200);
     }
 
     // DELETE  /conversations/{conversation} 
     // usuniecie konwersacji
-    public function destroy($slug) {
+    public function destroy(Conversation $conversation) {
+        $conversation->messages()->delete();
+        $conversation->users()->detach();
+        $conversation->delete();
 
+        return response()->json([
+            'message' => 'success'
+        ], 200);
     }
 
 }

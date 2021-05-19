@@ -6,7 +6,7 @@ use App\Http\Requests\Message\StoreRequest;
 use App\Models\Conversation;
 use Illuminate\Http\Request;
 
-class MessagesController extends Controller {
+class MessageController extends Controller {
 
     // GET 	/conversations/{conversation}/messages 		
     // wiadomosci pojedynczej konwersacji z paginacja
