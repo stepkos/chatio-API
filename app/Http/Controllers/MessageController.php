@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Message\StoreRequest;
+use App\Http\Requests\Message\MessageStoreRequest;
+use App\Http\Requests\Message\MessageUpdateRequest;
 use App\Models\Conversation;
-use Illuminate\Http\Request;
+use App\Models\Message;
 
 class MessageController extends Controller {
 
@@ -18,21 +19,10 @@ class MessageController extends Controller {
 
     // POST /conversations/{conversation}/messages 
     // wyslanie wiadmosci
-    public function store(StoreRequest $request, Conversation $conversation) {
-        if (!$conversation)
-            $conversation = auth()->user()->conversations()->create();
-
-        // \Log::debug($conversation->messages);
-        // $conversation->messages()->create($request->validated());
-        // return response()->json([
-        //     'message' => 'success'
-        // ], 201);
-
-        \Log::debug($conversation->messages);
-        $conversation->messages()->create([
-            'content' => $request->validated('content'),
-            'user_conversation_id' => $conversation->users()->where(['user_id' => auth()->user()->id])
-        ]);
+    public function store(MessageStoreRequest $request, Conversation $conversation) {
+        $conversation->messages()->create(
+            array_merge($request->validated(), ["user_id" => auth()->user()->id])
+        );
 
         return response()->json([
             'message' => 'success'
@@ -41,19 +31,29 @@ class MessageController extends Controller {
 
     // GET 	/conversations/{conversation}/messages/{message} 
     // pojedyncza wiadomosc
-    public function show() {
-      
+    public function show(Conversation $conversation, Message $message) {
+        return response()->json([
+            'data' => $message
+        ], 200);
     }
 
     // PUT 	/conversations/{conversation}/messages/{message} 
     // edycja pojedynczej wiadomosci
-    public function update($slug) {
+    public function update(MessageUpdateRequest $request, Conversation $conversation, Message $message) {
+        $message->update($request->validated());
 
+        return response()->json([
+            "message" => "success"
+        ], 200);
     }
 
     // DELETE  /conversations/{conversation}/messages/{message} 
     // usuniecie pojedynczej wiadomosci
-    public function destroy($slug) {
+    public function destroy(Conversation $conversation, Message $message) {
+        $message->delete();
 
+        return response()->json([
+            'message' => 'success'
+        ], 200);
     }
 }
