@@ -20,4 +20,8 @@ class Conversation extends Model
             ->withPivot('member_name');
     }
 
+    public function messages() {
+        return $this->hasMany(Message::class);
+    }
+
 }

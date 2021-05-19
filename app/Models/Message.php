@@ -12,10 +12,21 @@ class Message extends Model
     protected $table = 'messages';
 
     protected $fillable = [
+        'conversation_id',
+        'user_id',
         'content'
     ];
 
-    // public function user_conversations() {
-        
-    // }
+    protected $casts = [
+        'conversation_id' => 'integer',
+        'user_id' => 'integer'
+    ];
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
+    public function conversation() {
+        return $this->belongsTo(Conversation::class);
+    }
 }

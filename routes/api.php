@@ -31,3 +31,8 @@ Route::group([
         Route::put('/', [AuthController::class, 'update']);
     });
 });
+
+Route::group(['middleware' => ['api', 'auth']], function() {
+    Route::apiResource('conversations', ConversationController::class);
+    Route::apiResource('conversations.messages', MessagesController::class);
+});
