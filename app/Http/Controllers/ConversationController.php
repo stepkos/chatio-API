@@ -55,6 +55,8 @@ class ConversationController extends Controller
     // DELETE  /conversations/{conversation} 
     // usuniecie konwersacji
     public function destroy(Conversation $conversation) {
+        $this->authorize('delete', $conversation);
+
         $conversation->messages()->delete();
         $conversation->users()->detach();
         $conversation->delete();

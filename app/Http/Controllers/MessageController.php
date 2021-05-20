@@ -12,6 +12,8 @@ class MessageController extends Controller {
     // GET 	/conversations/{conversation}/messages 		
     // wiadomosci pojedynczej konwersacji z paginacja
     public function index(Conversation $conversation) {
+        $this->authorize('viewAny', $conversation);
+
         return response()->json([
             'data' => $conversation->messages
         ]);
@@ -20,6 +22,8 @@ class MessageController extends Controller {
     // POST /conversations/{conversation}/messages 
     // wyslanie wiadmosci
     public function store(MessageStoreRequest $request, Conversation $conversation) {
+        $this->authorize('create', $conversation);
+
         $conversation->messages()->create(
             array_merge($request->validated(), ["user_id" => auth()->user()->id])
         );
@@ -32,6 +36,8 @@ class MessageController extends Controller {
     // GET 	/conversations/{conversation}/messages/{message} 
     // pojedyncza wiadomosc
     public function show(Conversation $conversation, Message $message) {
+        $this->authorize('view', [$conversation, $message]);
+
         return response()->json([
             'data' => $message
         ], 200);
@@ -40,6 +46,8 @@ class MessageController extends Controller {
     // PUT 	/conversations/{conversation}/messages/{message} 
     // edycja pojedynczej wiadomosci
     public function update(MessageUpdateRequest $request, Conversation $conversation, Message $message) {
+        $this->authorize('update', [$conversation, $message]);
+
         $message->update($request->validated());
 
         return response()->json([
@@ -50,6 +58,8 @@ class MessageController extends Controller {
     // DELETE  /conversations/{conversation}/messages/{message} 
     // usuniecie pojedynczej wiadomosci
     public function destroy(Conversation $conversation, Message $message) {
+        $this->authorize('delete', [$conversation, $message]);
+
         $message->delete();
 
         return response()->json([
