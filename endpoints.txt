@@ -1,0 +1,32 @@
+GET 	/user - dane aktualnie zalogowanego usera
+PUT 	/user - modyfikacja danych uzytkownika
+
+POST	/user/login 	- get JWT
+POST	/user/regiser 	- register
+POST	/user/logout 	- logout
+POST	/user/refresh 	- refresh token
+
+--------------------------------------
+
+GET 	/conversations 		- wszystkie nazwy konwersacje tego uzytkowniaka
+POST 	/conversations 		- stworzenie nowej konwersacji
+GET 	/conversations/{conversation}	- nazwa pojedynczej kowersacji
+PUT 	/conversations/{conversation}  - zmiana nazwy konwersacji
+DELETE  /conversations/{conversation}  - usuniecie konwersacji
+
+--------------------------------------
+
+GET 	/conversations/{conversation}/messages 		- wiadomosci pojedynczej konwersacji z paginacja
+POST 	/conversations/{conversation}/messages 		- wyslanie wiadmosci
+GET 	/conversations/{conversation}/messages/{message} 	- pojedyncza wiadomosc
+PUT 	/conversations/{conversation}/messages/{message} 	- edycja pojedynczej wiadomosci
+DELETE  /conversations/{conversation}/messages/{message} 	- usuniecie pojedynczej wiadomosci
+
+
+
+
+1. migracje
+2. modele
+3. tinker test
+4. route
+5. controller
