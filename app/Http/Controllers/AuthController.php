@@ -130,4 +130,15 @@ class AuthController extends Controller
             'message' => 'success',
         ], 200);
     }
+
+    public function index(Request $request) {
+        if ($request->get('search'))
+            $users = User::where('name', 'like', "%{$request->get('search')}%")->get();
+        else
+            $users = User::all();
+
+        return response()->json([
+            "data" => $users
+        ]);
+    }
 }

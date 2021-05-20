@@ -29,7 +29,8 @@ Route::group([
 
         Route::post('logout', [AuthController::class, 'logout']);
         Route::post('refresh', [AuthController::class, 'refresh']);
-        Route::get('/', [AuthController::class, 'me']);
+        Route::get('/me', [AuthController::class, 'me']);
+        Route::get('/', [AuthController::class, 'index']);
         Route::put('/', [AuthController::class, 'update']);
     });
 });

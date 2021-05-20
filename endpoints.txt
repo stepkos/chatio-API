@@ -1,5 +1,6 @@
-GET 	/user - dane aktualnie zalogowanego usera
-PUT 	/user - modyfikacja danych uzytkownika
+GET 	/user           - wszyscy uzystkownicy
+GET 	/user/me        - dane aktualnie zalogowanego usera
+PUT 	/user           - modyfikacja danych uzytkownika
 
 POST	/user/login 	- get JWT
 POST	/user/regiser 	- register
@@ -8,16 +9,16 @@ POST	/user/refresh 	- refresh token
 
 --------------------------------------
 
-GET 	/conversations 		- wszystkie nazwy konwersacje tego uzytkowniaka
-POST 	/conversations 		- stworzenie nowej konwersacji
+GET 	/conversations 		            - wszystkie nazwy konwersacje tego uzytkowniaka
+POST 	/conversations 		            - stworzenie nowej konwersacji
 GET 	/conversations/{conversation}	- nazwa pojedynczej kowersacji
-PUT 	/conversations/{conversation}  - zmiana nazwy konwersacji
-DELETE  /conversations/{conversation}  - usuniecie konwersacji
+PUT 	/conversations/{conversation}   - zmiana nazwy konwersacji
+DELETE  /conversations/{conversation}   - usuniecie konwersacji
 
 --------------------------------------
 
-GET 	/conversations/{conversation}/messages 		- wiadomosci pojedynczej konwersacji z paginacja
-POST 	/conversations/{conversation}/messages 		- wyslanie wiadmosci
+GET 	/conversations/{conversation}/messages 		        - wiadomosci pojedynczej konwersacji z paginacja
+POST 	/conversations/{conversation}/messages 		        - wyslanie wiadmosci
 GET 	/conversations/{conversation}/messages/{message} 	- pojedyncza wiadomosc
 PUT 	/conversations/{conversation}/messages/{message} 	- edycja pojedynczej wiadomosci
 DELETE  /conversations/{conversation}/messages/{message} 	- usuniecie pojedynczej wiadomosci
