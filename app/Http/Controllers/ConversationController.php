@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Conversation\ConversationStoreRequest;
 use App\Http\Requests\Conversation\ConversationUpdateRequest;
 use App\Models\Conversation;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ConversationController extends Controller
@@ -36,7 +37,7 @@ class ConversationController extends Controller
         $this->authorize('view', $conversation);
 
         return response()->json([
-            'data' => $conversation
+            'data' => $conversation->with('users')->get()
         ]);
     }
 
@@ -60,6 +61,22 @@ class ConversationController extends Controller
         $conversation->messages()->delete();
         $conversation->users()->detach();
         $conversation->delete();
+
+        return response()->json([
+            'message' => 'success'
+        ], 200);
+    }
+
+    public function addMember(Request $request, Conversation $conversation) {
+        $conversation->users()->attach(User::find($request->get('user_id')));
+
+        return response()->json([
+            'message' => 'success'
+        ], 200);
+    }
+
+    public function kickMember(Request $request, Conversation $conversation) {
+        $conversation->users()->dettach($request->get('user_id'));
 
         return response()->json([
             'message' => 'success'

@@ -11,7 +11,7 @@ POST	/user/refresh 	- refresh token
 
 GET 	/conversations 		            - wszystkie nazwy konwersacje tego uzytkowniaka
 POST 	/conversations 		            - stworzenie nowej konwersacji
-GET 	/conversations/{conversation}	- nazwa pojedynczej kowersacji
+GET 	/conversations/{conversation}	- nazwa pojedynczej konwersacji
 PUT 	/conversations/{conversation}   - zmiana nazwy konwersacji
 DELETE  /conversations/{conversation}   - usuniecie konwersacji
 
@@ -24,6 +24,8 @@ PUT 	/conversations/{conversation}/messages/{message} 	- edycja pojedynczej wiad
 DELETE  /conversations/{conversation}/messages/{message} 	- usuniecie pojedynczej wiadomosci
 
 
+POST 	/conversations/{conversation}/add-member       - dodanie uzytkownika do konwersacji
+POST 	/conversations/{conversation}/kick-member      - dodanie uzytkownika do konwersacji
 
 
 1. migracje

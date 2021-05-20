@@ -35,7 +35,11 @@ Route::group([
     });
 });
 
+
 Route::group(['middleware' => ['api', 'auth']], function() {
     Route::apiResource('conversations', ConversationController::class);
     Route::apiResource('conversations.messages', MessageController::class);
+
+    Route::post('conversations/{conversation}/add-member', [ConversationController::class, 'addMember']);
+    Route::post('conversations/{conversation}/kick-member', [ConversationController::class, 'kickMember']);
 });
