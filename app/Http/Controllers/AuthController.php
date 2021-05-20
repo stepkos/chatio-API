@@ -109,9 +109,25 @@ class AuthController extends Controller
         ], 201);
     }
 
-    public function update() {
-        /**
-         * @todo create update method
-         */
+    public function update(Request $request) {
+        
+        $input = $request->validate([
+            'name' => 'nullable|string|max:50',
+            'email' => 'nullable|string|email|max:255|unique:users',
+            'password' => 'nullable|string|min:6|confirmed'
+        ]);
+
+        if ($input['name'] != null)
+            auth()->user()->update(['name' => $input['name']]);
+
+        if ($input['email'] != null)
+            auth()->user()->update(['email' => $input['email']]);
+
+        if ($input['password'] != null)
+            auth()->user()->update(['password' => Hash::make($input['password'])]);
+
+        return response()->json([
+            'message' => 'success',
+        ], 200);
     }
 }
