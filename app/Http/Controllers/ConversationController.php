@@ -31,6 +31,10 @@ class ConversationController extends Controller
     // nazwa pojedynczej kowersacji
     // model-binding = Conversation $conversation
     public function show(Conversation $conversation) {
+
+        // Uzycie polityki
+        $this->authorize('view', $conversation);
+
         return response()->json([
             'data' => $conversation
         ]);
@@ -39,6 +43,8 @@ class ConversationController extends Controller
     // PUT 	/conversations/{conversation}  
     // zmiana nazwy konwersacji
     public function update(ConversationUpdateRequest $request, Conversation $conversation) {
+        $this->authorize('update', $conversation);
+
         $conversation->update($request->validated());
 
         return response()->json([
