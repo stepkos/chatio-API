@@ -37,7 +37,8 @@ class ConversationController extends Controller
         $this->authorize('view', $conversation);
 
         return response()->json([
-            'data' => $conversation->with('users')->get()
+            'data' => $conversation
+            // 'data' => $conversation->with('users')->get()
         ]);
     }
 
@@ -68,7 +69,20 @@ class ConversationController extends Controller
     }
 
     public function addMember(Request $request, Conversation $conversation) {
-        $conversation->users()->attach(User::find($request->get('user_id')));
+
+        if ($conversation->name === null)
+            return response()->json([
+                'message' => 'error'
+            ], 409);
+
+        $newUser = User::find($request->get('user_id'));
+
+        if (!$conversation->users->contains($newUser))
+            $conversation->users()->attach($newUser);
+        else
+            return response()->json([
+                'message' => 'error'
+            ], 409);
 
         return response()->json([
             'message' => 'success'
@@ -76,6 +90,13 @@ class ConversationController extends Controller
     }
 
     public function kickMember(Request $request, Conversation $conversation) {
+
+        if ($conversation->name === null)
+            return response()->json([
+                'message' => 'error'
+            ], 409);
+
+            
         $conversation->users()->dettach($request->get('user_id'));
 
         return response()->json([

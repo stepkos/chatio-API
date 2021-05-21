@@ -1,4 +1,4 @@
-GET 	/user           - wszyscy uzystkownicy
+GET 	/user           - wszyscy uzytkownicy
 GET 	/user/me        - dane aktualnie zalogowanego usera
 PUT 	/user           - modyfikacja danych uzytkownika
 

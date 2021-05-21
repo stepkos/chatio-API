@@ -75,9 +75,9 @@ class ConversationPolicy
      * @param  \App\Models\Conversation  $conversation
      * @return mixed
      */
-    public function restore(User $user, Conversation $conversation)
+    public function kick(User $user, Conversation $conversation)
     {
-        //
+        return $conversation->users->contains($user);
     }
 
     /**
